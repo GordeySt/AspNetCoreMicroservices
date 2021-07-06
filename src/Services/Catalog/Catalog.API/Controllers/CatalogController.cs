@@ -70,14 +70,28 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] Product product)
         {
-            return Ok(await _repository.UpdateProduct(product));
+            var result = await _repository.UpdateProduct(product);
+
+            if (result == false)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteProduct(string id)
         {
-            return Ok(await _repository.DeleteProduct(id));
+            var result = await _repository.DeleteProduct(id);
+
+            if (result == false)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }
