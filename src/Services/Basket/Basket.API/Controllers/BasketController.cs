@@ -34,7 +34,7 @@ namespace Basket.API.Controllers
         {
             await _basketRepository.UpdateBasket(basket);
 
-            return CreatedAtRoute("GetBasket", new { user = basket.UserName }, basket);
+            return CreatedAtRoute("GetBasket", new { userName = basket.UserName }, basket);
         }
 
         [HttpDelete("{userName}", Name = "DeleteBasket")]

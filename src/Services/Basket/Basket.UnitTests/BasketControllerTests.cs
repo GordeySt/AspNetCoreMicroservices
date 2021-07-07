@@ -13,7 +13,6 @@ namespace Basket.UnitTests
     public class BasketControllerTests
     {
         private readonly Mock<IBasketRepository> _repositoryStub = new();
-        private readonly Random _rand = new();
 
         [Fact]
         public async Task GetBasket_WithExistingBasket_ReturnsExpectedBasket()
@@ -69,7 +68,8 @@ namespace Basket.UnitTests
         {
             return new()
             {
-                UserName = Guid.NewGuid().ToString()
+                UserName = Guid.NewGuid().ToString(),
+                Items = new()
             };
         }
     }
