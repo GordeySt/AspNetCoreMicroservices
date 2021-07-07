@@ -22,7 +22,7 @@ namespace Discount.API.Repositories
                 (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection.ExecuteAsync(
-                "insert into Coupon {ProductName, Description, Amount}" +
+                "insert into Coupon (ProductName, Description, Amount) " +
                 "values (@ProductName, @Description, @Amount)",
                 new 
                 { 
@@ -80,7 +80,7 @@ namespace Discount.API.Repositories
                 (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection.ExecuteAsync
-                ("update Coupon set ProductName = @ProductName, Description = @Description," +
+                ("update Coupon set ProductName = @ProductName, Description = @Description, " +
                 "Amount = @Amount where Id = @Id",
                 new
                 {
