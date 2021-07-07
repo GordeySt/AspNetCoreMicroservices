@@ -30,11 +30,9 @@ namespace Basket.API.Repositories
             return JsonConvert.DeserializeObject<ShoppingCart>(basket);
         }
 
-        public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
+        public async Task UpdateBasket(ShoppingCart basket)
         {
             await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
-
-            return await GetBasket(basket.UserName);
         }
     }
 }

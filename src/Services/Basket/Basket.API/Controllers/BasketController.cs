@@ -32,7 +32,9 @@ namespace Basket.API.Controllers
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
         {
-            return Ok(await _basketRepository.UpdateBasket(basket));
+            await _basketRepository.UpdateBasket(basket);
+
+            return CreatedAtRoute("GetBasket", new { user = basket.UserName }, basket);
         }
 
         [HttpDelete("{userName}", Name = "DeleteBasket")]
