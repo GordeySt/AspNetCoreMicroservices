@@ -8,6 +8,8 @@ namespace Basket.API.GrpcServices
     {
         private readonly DiscountProtoService.DiscountProtoServiceClient _discountProtoService;
 
+        public DiscountGrpcService() { }
+
         public DiscountGrpcService(DiscountProtoService.DiscountProtoServiceClient discountProtoService)
         {
             _discountProtoService = discountProtoService ?? 

@@ -1,5 +1,6 @@
 using Basket.API.Controllers;
 using Basket.API.Entities;
+using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace Basket.UnitTests
     public class BasketControllerTests
     {
         private readonly Mock<IBasketRepository> _repositoryStub = new();
+        private readonly Mock<DiscountGrpcService> _discountGrpcStub = new();
 
         [Fact]
         public async Task GetBasket_WithExistingBasket_ReturnsExpectedBasket()
@@ -23,7 +25,8 @@ namespace Basket.UnitTests
             _repositoryStub.Setup(repo => repo.GetBasket(It.IsAny<string>()))
                 .ReturnsAsync(expectedBasket);
 
-            var controller = new BasketController(_repositoryStub.Object);
+            var controller = new BasketController(_repositoryStub.Object,
+                _discountGrpcStub.Object);
 
             // Act
             var actionResult = await controller.GetBasket(Guid.NewGuid().ToString());
@@ -40,7 +43,8 @@ namespace Basket.UnitTests
             // Arrange
             var basketToUpdate = CreateRandomBasket();
 
-            var controller = new BasketController(_repositoryStub.Object);
+            var controller = new BasketController(_repositoryStub.Object,
+                _discountGrpcStub.Object);
 
             // Act
             var result = await controller.UpdateBasket(basketToUpdate);
@@ -55,7 +59,8 @@ namespace Basket.UnitTests
         public async Task DeleteBasket_WithExistingItem_ReturnsOK()
         {
             // Arrange
-            var controller = new BasketController(_repositoryStub.Object);
+            var controller = new BasketController(_repositoryStub.Object,
+                _discountGrpcStub.Object);
 
             // Act
             var result = await controller.DeleteBasket(Guid.NewGuid().ToString());
