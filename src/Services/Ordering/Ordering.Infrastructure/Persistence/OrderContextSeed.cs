@@ -14,7 +14,8 @@ namespace Ordering.Infrastructure.Persistence
             {
                 orderContext.Orders.AddRange(GetPreconfiguredOrders());
                 await orderContext.SaveChangesAsync();
-                logger.LogInformation("Seed database associated with context {DbContextName}", typeof(OrderContext).Name);
+                logger.LogInformation("Seed database associated with context {DbContextName}", 
+                    typeof(OrderContext).Name);
             }
         }
 
@@ -22,7 +23,14 @@ namespace Ordering.Infrastructure.Persistence
         {
             return new List<Order>
             {
-                new Order() {UserName = "swn", FirstName = "Mehmet", LastName = "Ozkaya", EmailAddress = "ezozkme@gmail.com", AddressLine = "Bahcelievler", Country = "Turkey", TotalPrice = 350 }
+                new Order() {
+                    UserName = "swn", 
+                    FirstName = "Gordey", 
+                    LastName = "St", 
+                    EmailAddress = "gordeyst@gmail.com", 
+                    AddressLine = "Bahcelievler", 
+                    Country = "Belarus", 
+                    TotalPrice = 350 }
             };
         }
     }
